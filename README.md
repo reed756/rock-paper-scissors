@@ -1,0 +1,1 @@
+Here I have made a Rock Paper Scissors game to be played from the console using Javascript. 
