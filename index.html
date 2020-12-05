@@ -26,14 +26,21 @@
       }
 
       // Play a round of Rock Paper Scissors.
-      const playerSelection = "rock";
-      const computerSelection = computerPlay();
 
       function playRound(playerSelection, computerSelection) {
-        
-        
+
+        let regexRock = /rock/i;
+        let regexScis = /scissors/i;
+        let regexPap = /paper/i;
+
+        if (playerSelection.match(regexRock) && computerSelection === "Rock" || playerSelection.match(regexPap) && computerSelection === "Paper" || playerSelection.match(regexScis) && computerSelection === "Scissors") {
+          return "It's a draw!"
+        } else if (playerSelection.match(regexRock) && computerSelection === "Scissors" || playerSelection.match(regexPap) && computerSelection === "Rock" || playerSelection.match(regexScis) && computerSelection === "Paper") {
+          return "You win!"
+        } else if (playerSelection.match(regexRock) && computerSelection === "Paper" || playerSelection.match(regexPap) && computerSelection === "Scissors" || playerSelection.match(regexScis) && computerSelection === "Rock") {
+          return "You lose!"
+        } else {return "Please enter Rock, Paper or Scissors."}
       }
-      
 
   </script>
 </body>
