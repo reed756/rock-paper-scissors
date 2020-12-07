@@ -28,11 +28,15 @@
 
       // Play a round of Rock Paper Scissors.
 
-      function playRound(playerSelection, computerSelection) {
-
       let regexRock = /rock/i;
       let regexScis = /scissors/i;
       let regexPap = /paper/i;
+      let compScore = 0;
+      let playerScore = 0;
+
+      // Play a round of Rock Paper Scissors.
+
+      function playRound(playerSelection, computerSelection) {
 
       if (playerSelection.match(regexRock) && computerSelection === "Rock" || playerSelection.match(regexPap) && computerSelection === "Paper" || playerSelection.match(regexScis) && computerSelection === "Scissors") {
         return "It's a draw!"
@@ -46,11 +50,9 @@
       // Play a five round game of Rock Paper Scissors.
 
       function game() {
-        playRound(playerSelection, computerSelection);
-        playRound(playerSelection, computerSelection);
-        playRound(playerSelection, computerSelection);
-        playRound(playerSelection, computerSelection);
-        playRound(playerSelection, computerSelection);
+        for (let i = 0; i < 5; i++) {
+        console.log(playRound(prompt('Please type Rock, Paper, or Scissors', ''), computerPlay()));
+        }
       }
 
       
