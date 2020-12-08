@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
+
   <meta charset="utf-8">
   <title></title>
   <meta name="author" content="">
@@ -15,6 +17,7 @@
   <p>Hello, world!</p>
 
   <script>
+
       // Computer selects their choice. 
       
       function computerPlay() {
@@ -39,25 +42,42 @@
       function playRound(playerSelection, computerSelection) {
 
       if (playerSelection.match(regexRock) && computerSelection === "Rock" || playerSelection.match(regexPap) && computerSelection === "Paper" || playerSelection.match(regexScis) && computerSelection === "Scissors") {
-        return "It's a draw!"
+        return "It's a draw!";
       } else if (playerSelection.match(regexRock) && computerSelection === "Scissors" || playerSelection.match(regexPap) && computerSelection === "Rock" || playerSelection.match(regexScis) && computerSelection === "Paper") {
-        return "You win!"
+        ++playerScore;
+        return "It's a win!";
       } else if (playerSelection.match(regexRock) && computerSelection === "Paper" || playerSelection.match(regexPap) && computerSelection === "Scissors" || playerSelection.match(regexScis) && computerSelection === "Rock") {
-        return "You lose!"
+        ++compScore;
+        return "It's a loss!";
       } else {return "Please enter Rock, Paper or Scissors."}
+      
       }
 
       // Play a five round game of Rock Paper Scissors.
 
       function game() {
+
         for (let i = 0; i < 5; i++) {
         console.log(playRound(prompt('Please type Rock, Paper, or Scissors', ''), computerPlay()));
         }
-      }
-
-      
+        if (playerScore < compScore) {
+          playerScore = 0;
+          compScore = 0;
+          return "Computer wins!";
+        } else if (playerScore === compScore) {
+          playerScore = 0;
+          compScore = 0;
+          return "It's a tie!"
+        } else {
+          playerScore = 0;
+          compScore = 0;
+          return "You win!";
+        }
+        
+        }
 
   </script>
+
 </body>
 
 </html>
