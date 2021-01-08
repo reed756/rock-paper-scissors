@@ -10,6 +10,20 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <style>
+
+    div {
+      opacity: 1;
+      transition-delay: 20s;
+      transition: opacity 1s;
+    }
+
+    div.fade-out {
+      opacity: 0;
+    }
+
+  </style>
+
 </head>
 
 <body>
@@ -56,15 +70,20 @@
       let regexPap = /paper/i;
       let compScore = 0;
       let playerScore = 0;
-      const results = document.querySelector(results);
+      const results = document.querySelector('#results');
+      const finResult = document.querySelector('h3');
 
       function playRound(playerSelection, computerSelection) {
       
       computerSelection = computerPlay();
 
       if (playerSelection.match(regexRock) && computerSelection === "Rock" || playerSelection.match(regexPap) && computerSelection === "Paper" || playerSelection.match(regexScis) && computerSelection === "Scissors") {
-        
-        return "It's a draw!";
+        const draw = document.createElement('div');
+        draw.textContent = "It's a draw!";
+        results.appendChild(draw);
+        setTimeout(function(){
+        draw.remove();
+      }, 5000);
       } else if (playerSelection.match(regexRock) && computerSelection === "Scissors" || playerSelection.match(regexPap) && computerSelection === "Rock" || playerSelection.match(regexScis) && computerSelection === "Paper") {
         ++playerScore;
         console.log("It's a win!");
@@ -75,6 +94,15 @@
         return "It's a loss!";
       } else {return "Please enter Rock, Paper or Scissors."}
       
+      }
+
+      // Fade out elements after introducing them.
+
+      function fadeOutAndRemove(element) {
+        element.classList.add('fade-out');
+        element.addEventListener('transitionend', function () {
+        element.parentNode.removeChild(element);
+      });
       }
 
       /* Play a five round game of Rock Paper Scissors.
@@ -100,7 +128,7 @@
 
       }
 
-      \*
+      */
 
       
 
