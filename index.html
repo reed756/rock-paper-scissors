@@ -35,8 +35,10 @@
     </div>
 
     <div id="results">
-            <h2 id="computer">Computer Score: 0</h2>
-            <h2 id="player">Player Score: 0</h2>
+            <h2>Computer Score</h2>
+            <p id="computer"></p>
+            <h2>Player Score</h2>
+            <p id="player"></p>
             <h3>Result</h3>
     </div>
   <script>
@@ -71,7 +73,8 @@
       let compScore = 0;
       let playerScore = 0;
       const results = document.querySelector('#results');
-      const finResult = document.querySelector('h3');
+      const player = document.querySelector('#player');
+      const computer = document.querySelector('#computer');
 
       function playRound(playerSelection, computerSelection) {
       
@@ -83,27 +86,45 @@
         results.appendChild(draw);
         setTimeout(function(){
         draw.remove();
-      }, 5000);
+      }, 1000);
       } else if (playerSelection.match(regexRock) && computerSelection === "Scissors" || playerSelection.match(regexPap) && computerSelection === "Rock" || playerSelection.match(regexScis) && computerSelection === "Paper") {
         ++playerScore;
-        console.log("It's a win!");
-        return "It's a win!";
+        const win = document.createElement('div');
+        win.textContent = "You win!";
+        results.appendChild(win);
+        player.textContent = `${playerScore}`;
+        setTimeout(function(){
+        win.remove();
+      }, 1000);
       } else if (playerSelection.match(regexRock) && computerSelection === "Paper" || playerSelection.match(regexPap) && computerSelection === "Scissors" || playerSelection.match(regexScis) && computerSelection === "Rock") {
         ++compScore;
-        console.log("It's a loss!");
-        return "It's a loss!";
+        const lose = document.createElement('div');
+        lose.textContent = "You Lose!";
+        results.appendChild(lose);
+        computer.textContent = `${compScore}`;
+        setTimeout(function(){
+        lose.remove();
+      }, 1000);
       } else {return "Please enter Rock, Paper or Scissors."}
       
       }
 
-      // Fade out elements after introducing them.
+      // Adding conditional so resets once player or cumputer gets to five points.
 
-      function fadeOutAndRemove(element) {
-        element.classList.add('fade-out');
-        element.addEventListener('transitionend', function () {
-        element.parentNode.removeChild(element);
-      });
+      if (compScore === 5) {
+        const finResult = document.createElement('div');
+        finResult.textContent = "Computer wins!";
+        results.appendChild(finResult);
+        setTimeout(function(){
+        finResult.remove();
+      }, 2000);
+      compScore = 0;
+      playerScore = 0;
+      computer.textContent = `${compScore}`;
+      player.textContent = `${playerScore}`;
       }
+      
+
 
       /* Play a five round game of Rock Paper Scissors.
 
