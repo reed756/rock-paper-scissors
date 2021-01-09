@@ -10,20 +10,6 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-
-    div {
-      opacity: 1;
-      transition-delay: 20s;
-      transition: opacity 1s;
-    }
-
-    div.fade-out {
-      opacity: 0;
-    }
-
-  </style>
-
 </head>
 
 <body>
@@ -51,6 +37,7 @@
 
       button.addEventListener('click', () => {
         playRound(button.id);
+        checkWinner();
       });
       });
 
@@ -75,19 +62,14 @@
       const results = document.querySelector('#results');
       const player = document.querySelector('#player');
       const computer = document.querySelector('#computer');
+      computer.textContent = `${compScore}`;
+      player.textContent = `${playerScore}`;
 
       function playRound(playerSelection, computerSelection) {
       
       computerSelection = computerPlay();
 
-      if (playerSelection.match(regexRock) && computerSelection === "Rock" || playerSelection.match(regexPap) && computerSelection === "Paper" || playerSelection.match(regexScis) && computerSelection === "Scissors") {
-        const draw = document.createElement('div');
-        draw.textContent = "It's a draw!";
-        results.appendChild(draw);
-        setTimeout(function(){
-        draw.remove();
-      }, 1000);
-      } else if (playerSelection.match(regexRock) && computerSelection === "Scissors" || playerSelection.match(regexPap) && computerSelection === "Rock" || playerSelection.match(regexScis) && computerSelection === "Paper") {
+      if (playerSelection.match(regexRock) && computerSelection === "Scissors" || playerSelection.match(regexPap) && computerSelection === "Rock" || playerSelection.match(regexScis) && computerSelection === "Paper") {
         ++playerScore;
         const win = document.createElement('div');
         win.textContent = "You win!";
@@ -105,53 +87,42 @@
         setTimeout(function(){
         lose.remove();
       }, 1000);
-      } else {return "Please enter Rock, Paper or Scissors."}
-      
-      }
-
-      // Adding conditional so resets once player or cumputer gets to five points.
-
-      if (compScore === 5) {
-        const finResult = document.createElement('div');
-        finResult.textContent = "Computer wins!";
-        results.appendChild(finResult);
-        setTimeout(function(){
-        finResult.remove();
-      }, 2000);
-      compScore = 0;
-      playerScore = 0;
-      computer.textContent = `${compScore}`;
-      player.textContent = `${playerScore}`;
-      }
-      
-
-
-      /* Play a five round game of Rock Paper Scissors.
-
-      function game() {
-
-      for (let i = 0; i < 5; i++) {
-      console.log(playRound(prompt('Please type Rock, Paper, or Scissors', ''), computerPlay()));
-      }
-      if (playerScore < compScore) {
-        playerScore = 0;
-        compScore = 0;
-        return "Computer wins!";
-      } else if (playerScore === compScore) {
-        playerScore = 0;
-        compScore = 0;
-        return "It's a tie!"
       } else {
-        playerScore = 0;
-        compScore = 0;
-        return "You win!";
+        const draw = document.createElement('div');
+        draw.textContent = "It's a draw!";
+        results.appendChild(draw);
+        setTimeout(function(){
+        draw.remove();
+      }, 1000);
       }
 
       }
 
-      */
+      // Adding conditional so resets once player or computer gets to five points and announces winner.
 
-      
+      function checkWinner() {
+        if (compScore === 5) {
+          compScore = 0;
+          playerScore = 0;
+          const compWin = document.createElement('div');
+          compWin.textContent = "The computer won!";
+          results.appendChild(compWin);
+          setTimeout(function(){
+          compWin.remove();
+        }, 2000);
+      } else if (playerScore === 5) {
+          compScore = 0;
+          playerScore = 0;
+          const playerWin = document.createElement('div');
+          playerWin.textContent = "Player won!";
+          results.appendChild(playerWin);
+          setTimeout(function(){
+          playerWin.remove();
+        }, 2000);
+        } else {}
+        computer.textContent = `${compScore}`;
+        player.textContent = `${playerScore}`;
+      }
 
   </script>
 
